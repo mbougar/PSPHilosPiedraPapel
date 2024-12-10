@@ -1,0 +1,14 @@
+C:\Users\Manuel\RiderProjects\PSPHilosPiedraPapel\PSPHilosPiedraPapel\bin\Debug\net8.0\PSPHilosPiedraPapel.exe
+C:\Users\Manuel\RiderProjects\PSPHilosPiedraPapel\PSPHilosPiedraPapel\bin\Debug\net8.0\PSPHilosPiedraPapel.deps.json
+C:\Users\Manuel\RiderProjects\PSPHilosPiedraPapel\PSPHilosPiedraPapel\bin\Debug\net8.0\PSPHilosPiedraPapel.runtimeconfig.json
+C:\Users\Manuel\RiderProjects\PSPHilosPiedraPapel\PSPHilosPiedraPapel\bin\Debug\net8.0\PSPHilosPiedraPapel.dll
+C:\Users\Manuel\RiderProjects\PSPHilosPiedraPapel\PSPHilosPiedraPapel\bin\Debug\net8.0\PSPHilosPiedraPapel.pdb
+C:\Users\Manuel\RiderProjects\PSPHilosPiedraPapel\PSPHilosPiedraPapel\obj\Debug\net8.0\PSPHilosPiedraPapel.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Manuel\RiderProjects\PSPHilosPiedraPapel\PSPHilosPiedraPapel\obj\Debug\net8.0\PSPHilosPiedraPapel.AssemblyInfoInputs.cache
+C:\Users\Manuel\RiderProjects\PSPHilosPiedraPapel\PSPHilosPiedraPapel\obj\Debug\net8.0\PSPHilosPiedraPapel.AssemblyInfo.cs
+C:\Users\Manuel\RiderProjects\PSPHilosPiedraPapel\PSPHilosPiedraPapel\obj\Debug\net8.0\PSPHilosPiedraPapel.csproj.CoreCompileInputs.cache
+C:\Users\Manuel\RiderProjects\PSPHilosPiedraPapel\PSPHilosPiedraPapel\obj\Debug\net8.0\PSPHilosPiedraPapel.dll
+C:\Users\Manuel\RiderProjects\PSPHilosPiedraPapel\PSPHilosPiedraPapel\obj\Debug\net8.0\refint\PSPHilosPiedraPapel.dll
+C:\Users\Manuel\RiderProjects\PSPHilosPiedraPapel\PSPHilosPiedraPapel\obj\Debug\net8.0\PSPHilosPiedraPapel.pdb
+C:\Users\Manuel\RiderProjects\PSPHilosPiedraPapel\PSPHilosPiedraPapel\obj\Debug\net8.0\PSPHilosPiedraPapel.genruntimeconfig.cache
+C:\Users\Manuel\RiderProjects\PSPHilosPiedraPapel\PSPHilosPiedraPapel\obj\Debug\net8.0\ref\PSPHilosPiedraPapel.dll
