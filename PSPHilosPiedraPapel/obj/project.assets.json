@@ -8,19 +8,19 @@
     "net8.0": []
   },
   "packageFolders": {
-    "C:\\Users\\manal\\.nuget\\packages\\": {}
+    "C:\\Users\\Manuel\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\manal\\RiderProjects\\PSPHilosPiedraPapel\\PSPHilosPiedraPapel\\PSPHilosPiedraPapel.csproj",
+      "projectUniqueName": "C:\\Users\\Manuel\\RiderProjects\\PSPHilosPiedraPapel\\PSPHilosPiedraPapel\\PSPHilosPiedraPapel.csproj",
       "projectName": "PSPHilosPiedraPapel",
-      "projectPath": "C:\\Users\\manal\\RiderProjects\\PSPHilosPiedraPapel\\PSPHilosPiedraPapel\\PSPHilosPiedraPapel.csproj",
-      "packagesPath": "C:\\Users\\manal\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\manal\\RiderProjects\\PSPHilosPiedraPapel\\PSPHilosPiedraPapel\\obj\\",
+      "projectPath": "C:\\Users\\Manuel\\RiderProjects\\PSPHilosPiedraPapel\\PSPHilosPiedraPapel\\PSPHilosPiedraPapel.csproj",
+      "packagesPath": "C:\\Users\\Manuel\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Manuel\\RiderProjects\\PSPHilosPiedraPapel\\PSPHilosPiedraPapel\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\manal\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Manuel\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -64,7 +64,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
