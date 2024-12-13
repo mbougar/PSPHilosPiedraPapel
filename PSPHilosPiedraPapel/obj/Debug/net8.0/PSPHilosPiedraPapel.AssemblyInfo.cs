@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PSPHilosPiedraPapel")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+df2346b61754b61c5bbe1e55b47f3ae493359fbc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+806f1538cf8a40c69b30788937e8216cd848809b")]
 [assembly: System.Reflection.AssemblyProductAttribute("PSPHilosPiedraPapel")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PSPHilosPiedraPapel")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

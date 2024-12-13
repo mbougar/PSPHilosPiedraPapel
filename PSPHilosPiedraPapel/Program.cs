@@ -2,7 +2,6 @@ namespace PSPHilosPiedraPapel
 {
     internal static class Program
     {
-        private static readonly object Locker = new();
         private static readonly string[] Opciones = ["Piedra", "Papel", "Tijera"];
         private static int _ronda = 1;
 
@@ -14,8 +13,8 @@ namespace PSPHilosPiedraPapel
             "Jugador 13", "Jugador 14", "Jugador 15", "Jugador 16"
         ];
 
-        private static Dictionary<string, List<string>> _resultados = new Dictionary<string, List<string>>();
-        private static Dictionary<string, bool> _terminados = new Dictionary<string, bool>();
+        private static Dictionary<string, string> _resultados = new Dictionary<string, string>();
+        private static Dictionary<string, bool> _enPausa = new Dictionary<string, bool>();
 
         private static void Main()
         {
@@ -27,92 +26,103 @@ namespace PSPHilosPiedraPapel
         {
             foreach (var jugador in _jugadores)
             {
-                _resultados[jugador] = [];
+                _resultados[jugador] = "";
+                _enPausa[jugador] = true;
                 var hilo = new Thread(() => Jugar(jugador));
                 hilo.Start();
             }
-            
+
             while (_jugadores.Count > 1)
             {
-                while (_terminados.ContainsValue(false))
-                {
-                    Thread.Sleep(500);
-                }
-                
-                Console.WriteLine($"\n--- Ronda {_ronda} ---");
-                
+                Console.WriteLine($"\n--- Ronda {_ronda} ---\n");
                 var ganadores = new List<string>();
+                var perdedores = new List<string>();
 
                 for (var i = 0; i < _jugadores.Count; i += 2)
                 {
-                    var ganadorIndex = CompararResultados(_resultados[_jugadores[i]], _resultados[_jugadores[i + 1]]) - 1;
-                    ganadores.Add(_jugadores[i + ganadorIndex]);
-                    Console.WriteLine($"Partida: {_jugadores[i]} vs {_jugadores[i + 1]} - Ganador: {_jugadores[i + ganadorIndex]}");
-                    _terminados[_jugadores[i]] = false;
-                    _terminados[_jugadores[i + 1]] = false;
+                    Console.WriteLine($"Partida: {_jugadores[i]} vs {_jugadores[i + 1]}\n");
+                    var puntuacion = 0;
+                    var tirada = 0;
+                    var jugador1 = _jugadores[i];
+                    var jugador2 = _jugadores[i + 1];
+
+                    while ((tirada > 2 && puntuacion == 0) || (tirada <= 2 && puntuacion != 2 && puntuacion != -2))
+                    {
+                        _enPausa[jugador1] = false;
+                        _enPausa[jugador2] = false;
+                        
+                        // Ponemos main en pausa mientras jugador1 o 2 estan fuera de pausa
+                        while (!_enPausa[jugador1] || !_enPausa[jugador2])
+                        {
+                            Thread.Sleep(10);
+                        }
+
+                        puntuacion += CompararResultados(_resultados[jugador1], _resultados[jugador2]);
+                        Console.WriteLine($"   - Puntuacion: {puntuacion}");
+                        tirada++;
+                    }
+
+                    switch (puntuacion)
+                    {
+                        case > 0:
+                            ganadores.Add(jugador1);
+                            perdedores.Add(jugador2);
+                            Console.WriteLine($"\nGanador: {_jugadores[i]}\n");
+                            break;
+
+                        case < 0:
+                            ganadores.Add(jugador2);
+                            perdedores.Add(jugador1);
+                            Console.WriteLine($"\nGanador: {_jugadores[i + 1]}\n");
+                            break;
+                    }
                 }
-                
+
                 _jugadores = ganadores;
                 _ronda++;
             }
 
             Console.WriteLine($"\nGanador del torneo: {_jugadores[0]}\n");
-            _jugadores = [];
+            
+            // Eliminamos el hilo del ganador
+            var ganador = _jugadores[0];
+            _jugadores = new List<string>();
+            _enPausa[ganador] = true;
         }
-        
+
         private static void Jugar(string name)
         {
-            lock (Locker)
-            {
-                _terminados[name] = false;
-            }
-            
             while (_jugadores.Contains(name))
             {
-                var random = new Random();
-                var jugada = new List<string>
+                while (_enPausa[name])
                 {
-                    Opciones[random.Next(Opciones.Length)],
-                    Opciones[random.Next(Opciones.Length)],
-                    Opciones[random.Next(Opciones.Length)]
-                };
-                
-                _resultados[name] = jugada;
-                _terminados[name] = true;
-                Console.WriteLine($"{name} jugó: {string.Join(", ", jugada)}");
-                
-                while (_terminados[name])
-                {
-                    Thread.Sleep(100);
+                    // Eliminamos el hilo si ya no esta dentro de la lista de jugadores
+                    if (!_jugadores.Contains(name))
+                    {
+                        return;
+                    }
+                    Thread.Sleep(10);
                 }
+
+                var random = new Random();
+                var jugada = Opciones[random.Next(Opciones.Length)];
+                _resultados[name] = jugada;
+                Console.WriteLine($"{name} jugó: {jugada}");
+
+                _enPausa[name] = true;
             }
-            
-            _terminados[name] = true;
         }
 
-        private static int CompararResultados(List<string> resultadosJugador1, List<string> resultadosJugador2)
+        private static int CompararResultados(string resultadosJugador1, string resultadosJugador2)
         {
-            var puntosJugador1 = 0;
-            var puntosJugador2 = 0;
-
-            for (var i = 0; i < 3; i++)
+            var puntuacion = (resultadosJugador1, resultadosJugador2) switch
             {
-                switch ((resultadosJugador1[i], resultadosJugador2[i]))
-                {
-                    case ("Piedra", "Tijera"):
-                    case ("Tijera", "Papel"):
-                    case ("Papel", "Piedra"):
-                        puntosJugador1++;
-                        break;
-                    case ("Tijera", "Piedra"):
-                    case ("Papel", "Tijera"):
-                    case ("Piedra", "Papel"):
-                        puntosJugador2++;
-                        break;
-                }
-            }
+                ("Piedra", "Tijera") or ("Tijera", "Papel") or ("Papel", "Piedra") => 1,
+                ("Tijera", "Piedra") or ("Papel", "Tijera") or ("Piedra", "Papel") => -1,
+                _ => 0
+            };
 
-            return puntosJugador1 > puntosJugador2 ? 1 : 2;
+            return puntuacion;
         }
     }
 }
