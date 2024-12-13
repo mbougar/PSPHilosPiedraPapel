@@ -41,12 +41,16 @@ namespace PSPHilosPiedraPapel
                 for (var i = 0; i < _jugadores.Count; i += 2)
                 {
                     Console.WriteLine($"Partida: {_jugadores[i]} vs {_jugadores[i + 1]}\n");
-                    var puntuacion = 0;
+
+                    var puntuacion1 = 0;
+                    var puntuacion2 = 0;
+
                     var tirada = 0;
+                    
                     var jugador1 = _jugadores[i];
                     var jugador2 = _jugadores[i + 1];
 
-                    while ((tirada > 2 && puntuacion == 0) || (tirada <= 2 && puntuacion != 2 && puntuacion != -2))
+                    while ((puntuacion1 != 2) && (puntuacion2 != 2) || ((puntuacion1 - puntuacion2 == 0) && tirada > 2))
                     {
                         EnPausa[jugador1] = false;
                         EnPausa[jugador2] = false;
@@ -57,12 +61,21 @@ namespace PSPHilosPiedraPapel
                             Thread.Sleep(10);
                         }
 
-                        puntuacion += CompararResultados(Resultados[jugador1], Resultados[jugador2]);
-                        Console.WriteLine($"   - Puntuacion: {puntuacion}");
+                        var resultadoMano = CompararResultados(Resultados[jugador1], Resultados[jugador2]);
+                        switch (resultadoMano)
+                        {
+                            case > 0:
+                                puntuacion1++;
+                                break;
+                            case < 0:
+                                puntuacion2++;
+                                break;
+                        }
+                        Console.WriteLine($"   - Puntuacion: {resultadoMano}");
                         tirada++;
                     }
 
-                    switch (puntuacion)
+                    switch (puntuacion1 - puntuacion2)
                     {
                         case > 0:
                             ganadores.Add(jugador1);
