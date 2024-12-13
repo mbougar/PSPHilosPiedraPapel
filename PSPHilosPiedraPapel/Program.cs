@@ -13,8 +13,9 @@ namespace PSPHilosPiedraPapel
             "Jugador 13", "Jugador 14", "Jugador 15", "Jugador 16"
         ];
 
-        private static Dictionary<string, string> _resultados = new Dictionary<string, string>();
-        private static Dictionary<string, bool> _enPausa = new Dictionary<string, bool>();
+        // Diccionario que representa el ultimo movimiento de cada jugador
+        private static readonly Dictionary<string, string> Resultados = new();
+        private static readonly Dictionary<string, bool> EnPausa = new();
 
         private static void Main()
         {
@@ -26,8 +27,8 @@ namespace PSPHilosPiedraPapel
         {
             foreach (var jugador in _jugadores)
             {
-                _resultados[jugador] = "";
-                _enPausa[jugador] = true;
+                Resultados[jugador] = "";
+                EnPausa[jugador] = true;
                 var hilo = new Thread(() => Jugar(jugador));
                 hilo.Start();
             }
@@ -36,7 +37,6 @@ namespace PSPHilosPiedraPapel
             {
                 Console.WriteLine($"\n--- Ronda {_ronda} ---\n");
                 var ganadores = new List<string>();
-                var perdedores = new List<string>();
 
                 for (var i = 0; i < _jugadores.Count; i += 2)
                 {
@@ -48,16 +48,16 @@ namespace PSPHilosPiedraPapel
 
                     while ((tirada > 2 && puntuacion == 0) || (tirada <= 2 && puntuacion != 2 && puntuacion != -2))
                     {
-                        _enPausa[jugador1] = false;
-                        _enPausa[jugador2] = false;
+                        EnPausa[jugador1] = false;
+                        EnPausa[jugador2] = false;
                         
                         // Ponemos main en pausa mientras jugador1 o 2 estan fuera de pausa
-                        while (!_enPausa[jugador1] || !_enPausa[jugador2])
+                        while (!EnPausa[jugador1] || !EnPausa[jugador2])
                         {
                             Thread.Sleep(10);
                         }
 
-                        puntuacion += CompararResultados(_resultados[jugador1], _resultados[jugador2]);
+                        puntuacion += CompararResultados(Resultados[jugador1], Resultados[jugador2]);
                         Console.WriteLine($"   - Puntuacion: {puntuacion}");
                         tirada++;
                     }
@@ -66,13 +66,11 @@ namespace PSPHilosPiedraPapel
                     {
                         case > 0:
                             ganadores.Add(jugador1);
-                            perdedores.Add(jugador2);
                             Console.WriteLine($"\nGanador: {_jugadores[i]}\n");
                             break;
 
                         case < 0:
                             ganadores.Add(jugador2);
-                            perdedores.Add(jugador1);
                             Console.WriteLine($"\nGanador: {_jugadores[i + 1]}\n");
                             break;
                     }
@@ -87,14 +85,14 @@ namespace PSPHilosPiedraPapel
             // Eliminamos el hilo del ganador
             var ganador = _jugadores[0];
             _jugadores = new List<string>();
-            _enPausa[ganador] = true;
+            EnPausa[ganador] = true;
         }
 
         private static void Jugar(string name)
         {
             while (_jugadores.Contains(name))
             {
-                while (_enPausa[name])
+                while (EnPausa[name])
                 {
                     // Eliminamos el hilo si ya no esta dentro de la lista de jugadores
                     if (!_jugadores.Contains(name))
@@ -106,10 +104,10 @@ namespace PSPHilosPiedraPapel
 
                 var random = new Random();
                 var jugada = Opciones[random.Next(Opciones.Length)];
-                _resultados[name] = jugada;
+                Resultados[name] = jugada;
                 Console.WriteLine($"{name} jugó: {jugada}");
 
-                _enPausa[name] = true;
+                EnPausa[name] = true;
             }
         }
 
