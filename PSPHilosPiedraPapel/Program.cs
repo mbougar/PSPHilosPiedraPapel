@@ -1,4 +1,3 @@
-﻿
 namespace PSPHilosPiedraPapel
 {
     internal static class Program
